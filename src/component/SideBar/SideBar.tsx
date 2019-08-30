@@ -1,8 +1,9 @@
 import React, { useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
-import { makeStyles, createStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import { uploadFile, upladFileIng } from '../../action/cloudStorage';
+import IFile from '../../interface/IFile';
 import styles from './index.scss';
 
 const useStyles = makeStyles({
@@ -35,6 +36,19 @@ const SideBar = (): JSX.Element => {
   const classes = useStyles({});
   const disaptch = useDispatch();
   const fileElement = useRef(null);
+
+  const submitFileUpload = (file: IFile) => {
+    const fileName = file.name;
+    const reader = new FileReader();
+    reader.addEventListener('load', () => {
+      disaptch(upladFileIng());
+      setTimeout(() => {
+        disaptch(uploadFile(fileName, reader.result));
+      }, 2000);
+    }, false);
+    reader.readAsDataURL(file);
+  };
+
   const [routeList] = useState([
     { id: 'share-with-me', name: '共享資料夾', },
     { id: 'starred', name: '已標記星號', },
@@ -102,18 +116,7 @@ const SideBar = (): JSX.Element => {
         <input
           type="file"
           ref={fileElement}
-          onChange={(e) => {
-            const file = e.target.files[0];
-            const fileName = file.name;
-            const reader = new FileReader();
-            reader.addEventListener('load', () => {
-              disaptch(upladFileIng());
-              setTimeout(() => {
-                disaptch(uploadFile(fileName, reader.result));
-              }, 1000);
-            }, false);
-            reader.readAsDataURL(file);
-          }}
+          onChange={(e) => { submitFileUpload(e.target.files[0]); }}
         />
       </div>
     </div>

@@ -2,6 +2,7 @@
     position: absolute;
     bottom: -160;
     transition: left 0.5s, transform 0.8s;
+    z-index: 10;
 }
 
 .monsterBlockOpen {
@@ -14,4 +15,31 @@
     left: -360px;
     transform:rotate(24deg);
     transition: left 0.5s, transform 0.8s;
+}
+
+.fileUploadingTooltip {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 20px;
+    font-size: 24px;
+    color: #2F3136;
+    position: absolute;
+    width: 332px;
+    height: 160px;
+    background: #ffffff;
+    border-radius: 20px 20px;
+    transition: bottom 1s, left 1s;
+}
+
+.fileUploadingTooltipOpen {
+    bottom: 132;
+    left: 80;
+}
+
+.fileUploadingTooltipClose {
+    bottom: -160;
+    left: -332;
 }

@@ -3,12 +3,12 @@ import File from '../class/File';
 import IFile from '../interface/IFile';
 
 interface IState {
-  uploading: boolean;
+  fileUploading: boolean;
   files: IFile[];
 }
 
 const initState: IState = {
-  uploading: false,
+  fileUploading: false,
   files: [],
 };
 
@@ -17,7 +17,7 @@ const cloudStorageReducer = (state = initState, action: any) => {
     case actions.UPLOAD_FILE_ING:
       return {
         ...state,
-        uploading: true,
+        fileUploading: true,
       };
     case actions.UPLOAD_FILE:
       return {
@@ -26,7 +26,7 @@ const cloudStorageReducer = (state = initState, action: any) => {
           ...state.files,
           new File(action.payload.name, action.payload.base64, '')
         ],
-        uploading: false,
+        fileUploading: false,
       };
     default:
       return state;
