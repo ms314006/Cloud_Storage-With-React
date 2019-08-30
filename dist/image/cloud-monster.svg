@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="720" height="334" viewBox="0 0 720 334">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_52" data-name="Rectangle 52" width="720" height="334" transform="translate(1376 1411)" fill="#fff" stroke="#707070" stroke-width="1"/>
+    </clipPath>
+  </defs>
+  <g id="CLOUD_MASTER" data-name="CLOUD MASTER" transform="translate(-1376 -1411)" clip-path="url(#clip-path)">
+    <g id="Group_27" data-name="Group 27" transform="translate(1616 710)">
+      <path id="Union_1" data-name="Union 1" d="M0,355C0,200.9,122.526,72.244,285.716,41.82,301.933,20.8,329.156,7,360,7s58.067,13.8,74.284,34.82C597.474,72.244,720,200.9,720,355c0,176.731-161.177,320-360,320S0,531.731,0,355Z" transform="translate(-240 694)" fill="#ffd46e"/>
+      <g id="Group_26" data-name="Group 26">
+        <g id="Group_12" data-name="Group 12" transform="translate(-600)">
+          <ellipse id="Ellipse_3" data-name="Ellipse 3" cx="17" cy="14" rx="17" ry="14" transform="translate(703 713)" fill="#fff"/>
+          <ellipse id="Ellipse_4" data-name="Ellipse 4" cx="8" cy="9" rx="8" ry="9" transform="translate(729 719) rotate(90)" fill="#2a2f31"/>
+          <circle id="Ellipse_8" data-name="Ellipse 8" cx="2" cy="2" r="2" transform="translate(728 720) rotate(90)" fill="rgba(255,255,255,0)"/>
+        </g>
+        <line id="Line_1" data-name="Line 1" x2="14" transform="translate(113 746)" fill="none" stroke="#2a2f31" stroke-linecap="round" stroke-width="1.5" opacity="0.7"/>
+      </g>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,34 @@
+.file {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 260px;
+    height: 232px;
+    background: #2F3136;
+    color: #F3F2EF;
+    border-radius: 5px 5px;
+    margin: 12px 12px 12px 0px;
+}
+
+.fileThumbnail {
+    width: 260px;
+    height: 180px;
+}
+
+.imageBlock {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.fileName {
+    width: 260px;
+    height: 52px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

@@ -1,0 +1,8 @@
+.mainBlock {
+    position: relative;
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    background-color: #2F3136;
+    height: 100vh;
+    overflow: hidden;
+}

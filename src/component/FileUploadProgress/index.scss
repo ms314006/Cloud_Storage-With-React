@@ -1,0 +1,17 @@
+.monsterBlock {
+    position: absolute;
+    bottom: -160;
+    transition: left 0.5s, transform 0.8s;
+}
+
+.monsterBlockOpen {
+    left: -272px;
+    transform:rotate(0deg);
+    transition: left 0.5s, transform 0.8s;
+}
+
+.monsterBlockClose {
+    left: -360px;
+    transform:rotate(24deg);
+    transition: left 0.5s, transform 0.8s;
+}
