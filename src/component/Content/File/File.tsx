@@ -2,14 +2,14 @@ import React from 'react';
 import styles from './index.scss';
 
 const File = (props: any):JSX.Element => {
-  const { name, type, path, } = props;
+  const { file, } = props;
   const getRenderDomWithType = (fileType: string) => {
     switch (fileType) {
       case 'jpg':
         return (
           <div
             className={styles.imageBlock}
-            style={{ backgroundImage: `url(${path})`, }}
+            style={{ backgroundImage: `url("${file.base64}")`, }}
           />
         );
       default:
@@ -20,10 +20,10 @@ const File = (props: any):JSX.Element => {
   return (
     <div className={styles.file}>
       <div className={styles.fileThumbnail}>
-        {getRenderDomWithType(type)}
+        {getRenderDomWithType(file.getFileType())}
       </div>
       <div className={styles.fileName}>
-        {name}
+        {file.name}
       </div>
     </div>
   );

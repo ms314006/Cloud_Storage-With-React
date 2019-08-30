@@ -1,6 +1,8 @@
 import React, { useState, useRef } from 'react';
+import { useDispatch } from 'react-redux';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import { uploadFile, upladFileIng } from '../../action/cloudStorage';
 import styles from './index.scss';
 
 const useStyles = makeStyles({
@@ -31,6 +33,7 @@ const useStyles = makeStyles({
 
 const SideBar = (): JSX.Element => {
   const classes = useStyles({});
+  const disaptch = useDispatch();
   const fileElement = useRef(null);
   const [routeList] = useState([
     { id: 'share-with-me', name: '共享資料夾', },
@@ -95,8 +98,23 @@ const SideBar = (): JSX.Element => {
           ))
         }
       </div>
-      <div>
-        <input type="file" ref={fileElement} />
+      <div className={styles.hiddenBlock}>
+        <input
+          type="file"
+          ref={fileElement}
+          onChange={(e) => {
+            const file = e.target.files[0];
+            const fileName = file.name;
+            const reader = new FileReader();
+            reader.addEventListener('load', () => {
+              disaptch(upladFileIng());
+              setTimeout(() => {
+                disaptch(uploadFile(fileName, reader.result));
+              }, 1000);
+            }, false);
+            reader.readAsDataURL(file);
+          }}
+        />
       </div>
     </div>
   );
