@@ -15,6 +15,8 @@ class Folder implements IFolder {
 
     importance: boolean = false;
 
+    share: boolean = false;
+
     constructor(name: string, folder: IFolder | null) {
       this.name = name;
       this.currentFolder = folder || null;
@@ -51,6 +53,8 @@ class Folder implements IFolder {
     }
 
     switchImportance = () => { this.importance = !this.importance; };
+
+    switchShare = () => { this.share = !this.share; };
 }
 
 export default Folder;

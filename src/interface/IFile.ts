@@ -6,7 +6,9 @@ export interface file {
   base64: string;
   currentFolder: IFolder;
   importance: boolean;
+  share: boolean;
   getFileType: () => string;
   rename: () => void;
   switchImportance: () => void;
+  switchShare: () => void;
 }

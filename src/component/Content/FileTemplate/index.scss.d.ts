@@ -3,3 +3,4 @@ export const iconButton: string;
 export const importance: string;
 export const imported: string;
 export const ellipsis: string;
+export const menuBlock: string;

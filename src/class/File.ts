@@ -13,6 +13,8 @@ class File implements IFile {
 
   importance: boolean = false;
 
+  share: boolean = false;
+
   constructor(
     name: string, base64: string, currentFolder: IFolder
   ) {
@@ -26,6 +28,8 @@ class File implements IFile {
   rename = (name: string) => { this.name = name; };
 
   switchImportance = () => { this.importance = !this.importance; };
+
+  switchShare = () => { this.share = !this.share; };
 }
 
 export default File;

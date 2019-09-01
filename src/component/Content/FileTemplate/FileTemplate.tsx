@@ -1,12 +1,29 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { makeStyles } from '@material-ui/core/styles';
 import Popper from '@material-ui/core/Popper';
 import Fade from '@material-ui/core/Fade';
-import Paper from '@material-ui/core/Paper';
-import { switchImportance } from '../../../action/cloudStorage';
+import Button from '@material-ui/core/Button';
+import { switchImportance, switchShare } from '../../../action/cloudStorage';
 import styles from './index.scss';
 
+const useStyles = makeStyles({
+  listBtn: {
+    background: '#fff',
+    fontSize: '12px',
+    color: '#2F3136',
+    boxShadow: '0px 0px',
+    letterSpacing: '1.6px',
+    borderBottom: '1px solid #f5f5f5',
+    borderRadius: '0px 0px',
+    '&:hover': {
+      background: '#e7e7e7',
+    },
+  },
+});
+
 const FileTemplate = (props: any) => {
+  const classes = useStyles({});
   const { children, file, } = props;
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   window.addEventListener(
@@ -33,15 +50,38 @@ const FileTemplate = (props: any) => {
       <div
         className={`menuButton ${styles.iconButton} ${styles.ellipsis}`}
         onKeyDown={() => {}}
-        onClick={(event) => { setAnchorEl(anchorEl ? null : event.currentTarget); }}
+        onClick={(event) => {
+          setAnchorEl(anchorEl ? null : event.currentTarget);
+          event.stopPropagation();
+        }}
       >
         <i className="fas fa-ellipsis-h" />
         <Popper open={Boolean(anchorEl)} anchorEl={anchorEl} transition>
           {({ TransitionProps, }) => (
             <Fade {...TransitionProps} timeout={350}>
-              <Paper>
-                asdfasdfsf
-              </Paper>
+              <div className={styles.menuBlock}>
+                <Button
+                  classes={{ root: classes.listBtn, }}
+                  onClick={() => { dispatch(switchShare(file)); }}
+                >
+                  {file.share ? '取消共享' : '共享'}
+                </Button>
+                <Button
+                  classes={{ root: classes.listBtn, }}
+                >
+                  下載
+                </Button>
+                <Button
+                  classes={{ root: classes.listBtn, }}
+                >
+                  重新命名
+                </Button>
+                <Button
+                  classes={{ root: classes.listBtn, }}
+                >
+                  刪除
+                </Button>
+              </div>
             </Fade>
           )}
         </Popper>

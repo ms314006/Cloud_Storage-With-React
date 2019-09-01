@@ -43,3 +43,12 @@ export const switchImportance = (file: IFolder | IFile) => ({
     file,
   },
 });
+
+export const SWITCH_SHARE = 'SWITCH_SHARE';
+
+export const switchShare = (file: IFolder | IFile) => ({
+  type: SWITCH_SHARE,
+  payload: {
+    file,
+  },
+});
