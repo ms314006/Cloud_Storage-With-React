@@ -47,6 +47,13 @@ const cloudStorageReducer = (state = initState, action: any) => {
         new Folder(action.payload.name, state.currentFolder)
       );
       return updateCloudStorageState();
+    case actions.DROP_FILE:
+      if (action.payload.fileType === 'file') {
+        state.currentFolder.subFile(action.payload.file);
+      } else {
+        state.currentFolder.subFolder(action.payload.file);
+      }
+      return updateCloudStorageState();
     case actions.CHANGE_CURRENT_FOLDER:
       return {
         ...state,

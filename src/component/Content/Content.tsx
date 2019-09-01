@@ -86,7 +86,11 @@ const Content = (props: any): JSX.Element => {
         <div className={styles.listBlock}>
           {
             folders.map((folder: IFolder) => (
-              <FileTemplate file={folder} key={folder.id}>
+              <FileTemplate
+                key={folder.id}
+                file={folder}
+                fileType="folder"
+              >
                 <Folder folder={folder} />
               </FileTemplate>
             ))
@@ -98,7 +102,11 @@ const Content = (props: any): JSX.Element => {
         <div className={styles.listBlock}>
           {
             files.map((file: IFile) => (
-              <FileTemplate file={file} key={file.id}>
+              <FileTemplate
+                key={file.id}
+                file={file}
+                fileType="file"
+              >
                 <File file={file} />
               </FileTemplate>
             ))

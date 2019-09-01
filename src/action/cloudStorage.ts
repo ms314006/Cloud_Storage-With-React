@@ -26,6 +26,16 @@ export const createFolder = (name: string) => ({
   },
 });
 
+export const DROP_FILE = 'DROP_FILE';
+
+export const dropFile = (file: IFolder | IFile, fileType: string) => ({
+  type: DROP_FILE,
+  payload: {
+    file,
+    fileType,
+  },
+});
+
 export const CHANGE_CURRENT_FOLDER = 'CHANGE_CURRENT_FOLDER';
 
 export const changeCurrentFolder = (folder: IFolder) => ({

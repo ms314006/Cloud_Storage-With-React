@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Popper from '@material-ui/core/Popper';
 import Fade from '@material-ui/core/Fade';
 import Button from '@material-ui/core/Button';
-import { switchImportance, switchShare } from '../../../action/cloudStorage';
+import { switchImportance, switchShare, dropFile } from '../../../action/cloudStorage';
 import styles from './index.scss';
 
 const useStyles = makeStyles({
@@ -24,7 +24,7 @@ const useStyles = makeStyles({
 
 const FileTemplate = (props: any) => {
   const classes = useStyles({});
-  const { children, file, } = props;
+  const { children, file, fileType, } = props;
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   window.addEventListener(
     'click', (e) => {
@@ -78,6 +78,7 @@ const FileTemplate = (props: any) => {
                 </Button>
                 <Button
                   classes={{ root: classes.listBtn, }}
+                  onClick={() => { dispatch(dropFile(file, fileType)); }}
                 >
                   刪除
                 </Button>
