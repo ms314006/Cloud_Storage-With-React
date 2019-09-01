@@ -62,3 +62,13 @@ export const switchShare = (file: IFolder | IFile) => ({
     file,
   },
 });
+
+export const RENAME_FILE = 'RENAME_FILE';
+
+export const renameFile = (file: IFolder | IFile, newName: string) => ({
+  type: RENAME_FILE,
+  payload: {
+    file,
+    newName,
+  },
+});

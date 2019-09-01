@@ -67,6 +67,9 @@ const cloudStorageReducer = (state = initState, action: any) => {
     case actions.SWITCH_SHARE:
       action.payload.file.switchShare();
       return updateCloudStorageState();
+    case actions.RENAME_FILE:
+      action.payload.file.rename(action.payload.newName);
+      return updateCloudStorageState();
     default:
       return state;
   }

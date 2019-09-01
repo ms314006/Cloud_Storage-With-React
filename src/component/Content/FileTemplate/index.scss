@@ -46,7 +46,27 @@
 .menuBlock {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     background: #ffffff;
     padding: 4px;
+}
+
+.renameFileBlock {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 140px;
+    border-radius: 20px 20px;
+}
+
+.renameFileTitle {
+    color: #2F3136;
+    font-size: 24px;
+}
+
+.renameFileButtonBlock {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
 }

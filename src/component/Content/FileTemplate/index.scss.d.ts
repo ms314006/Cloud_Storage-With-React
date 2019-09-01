@@ -4,3 +4,6 @@ export const importance: string;
 export const imported: string;
 export const ellipsis: string;
 export const menuBlock: string;
+export const renameFileBlock: string;
+export const renameFileTitle: string;
+export const renameFileButtonBlock: string;
