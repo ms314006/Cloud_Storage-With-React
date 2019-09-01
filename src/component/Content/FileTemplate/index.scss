@@ -1,0 +1,44 @@
+.fileTemplateBlock {
+    position: relative;
+    box-sizing: border-box;
+    border-radius: 5px 5px;
+    margin: 12px 12px 12px 0px;
+    overflow: hidden;
+}
+
+.iconButton {
+    font-size: 12px;
+    box-sizing: border-box;
+    padding: 4px;
+    border-radius: 5px 5px;
+    display: none;
+    border: 1px solid #6B6D72;
+    background: #43454A;
+}
+
+.importance {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+}
+
+.imported {
+    color: #FFD46E;
+}
+
+.ellipsis {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+}
+
+.fileTemplateBlock:hover {
+    border: 1px solid #6B6D72;
+    .importance {
+        display: block;
+    }
+
+    .ellipsis {
+        display: block;
+    }
+}

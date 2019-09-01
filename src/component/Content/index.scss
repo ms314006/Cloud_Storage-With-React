@@ -22,3 +22,17 @@
     flex-wrap: wrap;
     margin-top: 8px;
 }
+
+.pathIcon {
+    color: #6B6D72;
+    margin: 0px 12px;
+}
+
+.folderPath:hover {
+    color: #fff;
+    text-decoration: underline;
+}
+
+.currentFolderSpan {
+    color: #fff;
+}

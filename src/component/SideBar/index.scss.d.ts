@@ -4,3 +4,6 @@ export const listBlock: string;
 export const list: string;
 export const listIcon: string;
 export const hiddenBlock: string;
+export const createFolderBlock: string;
+export const createFolderTitle: string;
+export const createFolderButtonBlock: string;

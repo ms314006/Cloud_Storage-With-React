@@ -1,9 +1,12 @@
 import React, { useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import { uploadFile, upladFileIng } from '../../action/cloudStorage';
-import IFile from '../../interface/IFile';
+import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
+import { uploadFile, upladFileIng, createFolder } from '../../action/cloudStorage';
+import { IFile } from '../../interface/IFile';
 import styles from './index.scss';
 
 const useStyles = makeStyles({
@@ -30,20 +33,40 @@ const useStyles = makeStyles({
       background: '#44464a',
     },
   },
+  newFolderName: {
+    background: '#F3F2EF',
+    color: '#2F3136',
+    padding: '4px 12px',
+    borderRadius: '4px 4px',
+    width: '300px',
+  },
+  createBtn: {
+    background: '#FFD46E',
+    padding: '4px 12px',
+    borderRadius: '4px 4px',
+  },
+  cancelCreateBtn: {
+    padding: '4px 12px',
+    border: '1px solid #6B6D72',
+    borderRadius: '4px 4px',
+    margin: '0px 8px',
+  },
 });
 
 const SideBar = (): JSX.Element => {
   const classes = useStyles({});
-  const disaptch = useDispatch();
+  const dispatch = useDispatch();
   const fileElement = useRef(null);
+  const [createFolderWindow, setCreateFolderWindow] = useState(false);
+  const [newFolderName, setNewFolderName] = useState('');
 
   const submitFileUpload = (file: IFile) => {
     const fileName = file.name;
     const reader = new FileReader();
     reader.addEventListener('load', () => {
-      disaptch(upladFileIng());
+      dispatch(upladFileIng());
       setTimeout(() => {
-        disaptch(uploadFile(fileName, reader.result));
+        dispatch(uploadFile(fileName, reader.result));
       }, 2000);
     }, false);
     reader.readAsDataURL(file);
@@ -84,7 +107,7 @@ const SideBar = (): JSX.Element => {
         <div className={styles.list}>
           <Button
             classes={{ root: classes.listBtn, }}
-            onClick={() => { fileElement.current.click(); }}
+            onClick={() => { setCreateFolderWindow(true); }}
           >
             <img
               alt="新資料夾"
@@ -93,6 +116,47 @@ const SideBar = (): JSX.Element => {
             />
             新資料夾
           </Button>
+          <Dialog open={createFolderWindow}>
+            <DialogContent>
+              <div className={styles.createFolderBlock}>
+                <div className={styles.createFolderTitle}>
+                  建立新資料夾
+                </div>
+                <div>
+                  <TextField
+                    value={newFolderName}
+                    onChange={(e) => { setNewFolderName(e.target.value); }}
+                    className={classes.newFolderName}
+                    InputProps={{
+                      disableUnderline: true,
+                      placeholder: '資料夾名稱',
+                    }}
+                  />
+                </div>
+                <div className={styles.createFolderButtonBlock}>
+                  <Button
+                    onClick={() => {
+                      setCreateFolderWindow(false);
+                      setNewFolderName('');
+                    }}
+                    classes={{ root: classes.cancelCreateBtn, }}
+                  >
+                    取消
+                  </Button>
+                  <Button
+                    onClick={() => {
+                      dispatch(createFolder(newFolderName));
+                      setNewFolderName('');
+                      setCreateFolderWindow(false);
+                    }}
+                    classes={{ root: classes.createBtn, }}
+                  >
+                    建立
+                  </Button>
+                </div>
+              </div>
+            </DialogContent>
+          </Dialog>
         </div>
         {
           routeList.map(route => (

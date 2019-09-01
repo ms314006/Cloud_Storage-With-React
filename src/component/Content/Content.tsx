@@ -1,12 +1,15 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import TextField from '@material-ui/core/TextField';
 import VisibilityIcon from '@material-ui/icons/Visibility';
+import FileTemplate from './FileTemplate';
 import Folder from './Folder';
 import File from './File';
-import IFile from '../../interface/IFile';
+import { IFile } from '../../interface/IFile';
+import { IFolder } from '../../interface/IFolder';
+import { changeCurrentFolder } from '../../action/cloudStorage';
 import styles from './index.scss';
 
 const useStyles = makeStyles({
@@ -26,12 +29,39 @@ const useStyles = makeStyles({
 const Content = (props: any): JSX.Element => {
   const {} = props;
   const classes = useStyles({});
-  const { files, } = useSelector(state => state);
-  const folders = ['Week1', 'Week2', 'Week3', 'Week4', 'Week5'];
+  const dispatch = useDispatch();
+  const { files, folders, currentFolder, } = useSelector(state => state);
+
+  const getFolderPath = (folder: IFolder) => (
+    folder.getFolderPath().map(
+      (aFolder: IFolder) => {
+        const folderName = aFolder.name === '' ? '我的雲端硬碟' : aFolder.name;
+        return (
+          <span
+            key={aFolder.id}
+            onKeyDown={() => {}}
+            onClick={() => { dispatch(changeCurrentFolder(aFolder)); }}
+            className={
+              `${styles.folderPath}
+               ${aFolder === currentFolder ? styles.currentFolderSpan : ''}`
+            }
+          >
+            {aFolder.name !== ''
+              ? <i className={`fas fa-caret-right ${styles.pathIcon}`} />
+              : null}
+            {folderName}
+          </span>
+        );
+      }
+    )
+  );
+
   return (
     <div className={styles.contentBlock}>
       <div className={styles.contentHeader}>
-        <div>我的雲端硬碟</div>
+        <div>
+          {getFolderPath(currentFolder)}
+        </div>
         <div>
           <TextField
             InputProps={{
@@ -55,7 +85,11 @@ const Content = (props: any): JSX.Element => {
         資料夾
         <div className={styles.listBlock}>
           {
-            folders.map(name => <Folder key={name} name={name} />)
+            folders.map((folder: IFolder) => (
+              <FileTemplate file={folder} key={folder.id}>
+                <Folder folder={folder} />
+              </FileTemplate>
+            ))
           }
         </div>
       </div>
@@ -63,7 +97,11 @@ const Content = (props: any): JSX.Element => {
         檔案
         <div className={styles.listBlock}>
           {
-            files.map((file: IFile) => <File key={file.id} file={file} />)
+            files.map((file: IFile) => (
+              <FileTemplate file={file} key={file.id}>
+                <File file={file} />
+              </FileTemplate>
+            ))
           }
         </div>
       </div>

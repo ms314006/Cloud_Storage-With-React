@@ -30,3 +30,23 @@
 .hiddenBlock {
     display: none;
 }
+
+.createFolderBlock {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 140px;
+    border-radius: 20px 20px;
+}
+
+.createFolderTitle {
+    color: #2F3136;
+    font-size: 24px;
+}
+
+.createFolderButtonBlock {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+}

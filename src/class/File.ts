@@ -1,5 +1,6 @@
 import uuid from 'uuid/v1';
-import IFile from '../interface/IFile';
+import { IFile } from '../interface/IFile';
+import { IFolder } from '../interface/IFolder';
 
 class File implements IFile {
   id: string = uuid();
@@ -8,10 +9,12 @@ class File implements IFile {
 
   base64: string;
 
-  currentFolder: string;
+  currentFolder: IFolder;
+
+  importance: boolean = false;
 
   constructor(
-    name: string, base64: string, currentFolder: string
+    name: string, base64: string, currentFolder: IFolder
   ) {
     this.name = name;
     this.base64 = base64;
@@ -19,6 +22,10 @@ class File implements IFile {
   }
 
   getFileType = () => this.name.slice(this.name.lastIndexOf('.') + 1);
+
+  rename = (name: string) => { this.name = name; };
+
+  switchImportance = () => { this.importance = !this.importance; };
 }
 
 export default File;
