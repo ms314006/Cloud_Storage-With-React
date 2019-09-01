@@ -97,7 +97,10 @@ const FileTemplate = (props: any) => {
               <div className={styles.menuBlock}>
                 <Button
                   classes={{ root: classes.listBtn, }}
-                  onClick={() => { dispatch(switchShare(file)); }}
+                  onClick={() => {
+                    dispatch(switchShare(file));
+                    setAnchorEl(null);
+                  }}
                 >
                   {file.share ? '取消共享' : '共享'}
                 </Button>

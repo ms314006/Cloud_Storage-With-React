@@ -8,6 +8,8 @@ interface IState {
   fileUploading: boolean;
   files: IFile[];
   folders: IFolder[];
+  starredFiles: IFile[];
+  starredFolders: IFolder[];
   currentFolder: IFolder;
 }
 
@@ -17,6 +19,10 @@ const initState: IState = {
   fileUploading: false,
   files: [],
   folders: [],
+  starredFiles: [],
+  starredFolders: [],
+  sharedFiles: [],
+  sharedFolders: [],
   currentFolder: root,
 };
 
@@ -25,6 +31,10 @@ const cloudStorageReducer = (state = initState, action: any) => {
     ...state,
     files: [...state.currentFolder.files],
     folders: [...state.currentFolder.folders],
+    starredFolders: root.getTagedFolders('importance'),
+    starredFiles: root.getTagedFiles('importance'),
+    sharedFolders: root.getTagedFolders('share'),
+    sharedFiles: root.getTagedFiles('share'),
   });
   switch (action.type) {
     case actions.UPLOAD_FILE_ING:

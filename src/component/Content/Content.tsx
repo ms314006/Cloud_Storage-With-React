@@ -30,37 +30,68 @@ const Content = (props: any): JSX.Element => {
   const {} = props;
   const classes = useStyles({});
   const dispatch = useDispatch();
-  const { files, folders, currentFolder, } = useSelector(state => state);
-
-  const getFolderPath = (folder: IFolder) => (
-    folder.getFolderPath().map(
-      (aFolder: IFolder) => {
-        const folderName = aFolder.name === '' ? '我的雲端硬碟' : aFolder.name;
-        return (
-          <span
-            key={aFolder.id}
-            onKeyDown={() => {}}
-            onClick={() => { dispatch(changeCurrentFolder(aFolder)); }}
-            className={
-              `${styles.folderPath}
-               ${aFolder === currentFolder ? styles.currentFolderSpan : ''}`
-            }
-          >
-            {aFolder.name !== ''
-              ? <i className={`fas fa-caret-right ${styles.pathIcon}`} />
-              : null}
-            {folderName}
-          </span>
+  const { files, currentFolder, } = useSelector(state => state);
+  const { match: { params: { routeType, }, }, } = props;
+  const renderHeaderTitle = (route: string, folder: IFolder) => {
+    switch (route) {
+      case 'starred':
+        return '已加星號';
+      case 'share-with-me':
+        return '與我共享';
+      default:
+        return folder.getFolderPath().map(
+          (aFolder: IFolder) => {
+            const folderName = aFolder.name === '' ? '我的雲端硬碟' : aFolder.name;
+            return (
+              <span
+                key={aFolder.id}
+                onKeyDown={() => {}}
+                onClick={() => { dispatch(changeCurrentFolder(aFolder)); }}
+                className={
+                  `${styles.folderPath}
+                   ${aFolder === currentFolder ? styles.currentFolderSpan : ''}`
+                }
+              >
+                {aFolder.name !== ''
+                  ? <i className={`fas fa-caret-right ${styles.pathIcon}`} />
+                  : null}
+                {folderName}
+              </span>
+            );
+          }
         );
-      }
-    )
-  );
+    }
+  };
+
+  const getRenderFolders = (route: string): IFolder[] => {
+    const { folders, starredFolders, sharedFolders } = useSelector(state => state);
+    switch (route) {
+      case 'starred':
+        return starredFolders;
+      case 'share-with-me':
+        return sharedFolders;
+      default:
+        return folders;
+    }
+  };
+
+  const getRenderFiles = (route: string): IFile[] => {
+    const { files, starredFiles, sharedFiles } = useSelector(state => state);
+    switch (route) {
+      case 'starred':
+        return starredFiles;
+      case 'share-with-me':
+        return sharedFiles;
+      default:
+        return files;
+    }
+  };
 
   return (
     <div className={styles.contentBlock}>
       <div className={styles.contentHeader}>
         <div>
-          {getFolderPath(currentFolder)}
+          {renderHeaderTitle(routeType, currentFolder)}
         </div>
         <div>
           <TextField
@@ -85,7 +116,7 @@ const Content = (props: any): JSX.Element => {
         資料夾
         <div className={styles.listBlock}>
           {
-            folders.map((folder: IFolder) => (
+            getRenderFolders(routeType).map((folder: IFolder) => (
               <FileTemplate
                 key={folder.id}
                 file={folder}
@@ -101,7 +132,7 @@ const Content = (props: any): JSX.Element => {
         檔案
         <div className={styles.listBlock}>
           {
-            files.map((file: IFile) => (
+            getRenderFiles(routeType).map((file: IFile) => (
               <FileTemplate
                 key={file.id}
                 file={file}

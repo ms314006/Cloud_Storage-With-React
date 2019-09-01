@@ -52,6 +52,38 @@ class Folder implements IFolder {
       return result.reverse();
     }
 
+    getTagedFolders = (tagType: string) => {
+      const result: IFolder[] = [];
+      const findStarredWithFolder = (folder: IFolder) => {
+        folder.folders.forEach((aFolder: IFolder) => {
+          if (aFolder[tagType]) {
+            result.push(aFolder);
+          }
+          if (aFolder.folders.length > 0) {
+            findStarredWithFolder(aFolder);
+          }
+        });
+      };
+      findStarredWithFolder(this);
+      return result;
+    }
+
+    getTagedFiles= (tagType: string) => {
+      const result: IFile[] = [];
+      const findStarredWithFile = (folder: IFolder) => {
+        folder.files.forEach((aFile: IFolder) => {
+          if (aFile[tagType]) {
+            result.push(aFile);
+          }
+        });
+        folder.folders.forEach((aFolder: IFolder) => {
+          findStarredWithFile(aFolder);
+        });
+      };
+      findStarredWithFile(this);
+      return result;
+    }
+
     switchImportance = () => { this.importance = !this.importance; };
 
     switchShare = () => { this.share = !this.share; };

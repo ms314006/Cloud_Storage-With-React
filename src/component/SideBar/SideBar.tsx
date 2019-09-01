@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -67,7 +68,7 @@ const SideBar = (): JSX.Element => {
       dispatch(upladFileIng());
       setTimeout(() => {
         dispatch(uploadFile(fileName, reader.result));
-      }, 2000);
+      }, 1500);
     }, false);
     reader.readAsDataURL(file);
   };
@@ -79,7 +80,9 @@ const SideBar = (): JSX.Element => {
   return (
     <div className={styles.sideBar}>
       <div>
-        <img src="./image/logo.svg" alt="logo" />
+        <Link to="/with-cloud">
+          <img src="./image/logo.svg" alt="logo" />
+        </Link>
       </div>
       <Button
         classes={{ root: classes.uploadBtn, }}
@@ -160,19 +163,18 @@ const SideBar = (): JSX.Element => {
         </div>
         {
           routeList.map(route => (
-            <div
-              key={route.id}
-              className={styles.list}
-            >
-              <Button classes={{ root: classes.listBtn, }}>
-                <img
-                  alt={route.name}
-                  src={`./image/${route.id}.svg`}
-                  className={styles.listIcon}
-                />
-                {route.name}
-              </Button>
-            </div>
+            <Link key={route.id} to={`/${route.id}`}>
+              <div className={styles.list}>
+                <Button classes={{ root: classes.listBtn, }}>
+                  <img
+                    alt={route.name}
+                    src={`./image/${route.id}.svg`}
+                    className={styles.listIcon}
+                  />
+                  {route.name}
+                </Button>
+              </div>
+            </Link>
           ))
         }
       </div>
@@ -180,7 +182,12 @@ const SideBar = (): JSX.Element => {
         <input
           type="file"
           ref={fileElement}
-          onChange={(e) => { submitFileUpload(e.target.files[0]); }}
+          onChange={(e) => {
+            const file = e.target.files[0];
+            if (file) {
+              submitFileUpload(file);
+            }
+          }}
         />
       </div>
     </div>

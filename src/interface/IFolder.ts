@@ -6,6 +6,7 @@ export interface IFolder {
   currentFolder: IFolder | null;
   folders: IFolder[];
   files: IFile[];
+  importance: boolean;
   share: boolean;
   addFile: (file: IFile) => void;
   subFile: (file: IFile) => void;
@@ -13,6 +14,8 @@ export interface IFolder {
   subFolder: (folder: IFolder) => void;
   rename: (name: string) => void;
   getFolderPath: () => IFolder[];
+  getTagedFolders: (tagType: string) => IFolder[];
+  getTagedFiles: (tagType: string) => IFile[];
   switchImportance: () => void;
   switchShare: () => void;
 }

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import Content from '../Content';
 import SideBar from '../SideBar';
 import FileUploadProgress from '../FileUploadProgress';
@@ -10,7 +11,10 @@ const Main = (): JSX.Element => (
     className={styles.mainBlock}
   >
     <SideBar />
-    <Content />
+    <Switch>
+      <Route path="/:routeType" component={Content} />
+      <Redirect from="/" to="/withMyCloud" />
+    </Switch>
     <FileUploadProgress />
   </div>
 );
