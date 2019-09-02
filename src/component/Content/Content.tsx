@@ -143,7 +143,7 @@ const Content = (props: any): JSX.Element => {
           {
             getRenderFiles(routeType)
               .filter((file: IFile) => (
-                filterWord !== ''
+                filterWord === ''
                 || file.name.indexOf(filterWord) !== -1
               ))
               .map((file: IFile) => (
