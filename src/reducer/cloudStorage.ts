@@ -10,7 +10,10 @@ interface IState {
   folders: IFolder[];
   starredFiles: IFile[];
   starredFolders: IFolder[];
+  sharedFiles: IFile[],
+  sharedFolders: IFolder[],
   currentFolder: IFolder;
+  filterWord: string,
 }
 
 const root = new Folder('', null);
@@ -24,6 +27,7 @@ const initState: IState = {
   sharedFiles: [],
   sharedFolders: [],
   currentFolder: root,
+  filterWord: '',
 };
 
 const cloudStorageReducer = (state = initState, action: any) => {
@@ -80,6 +84,11 @@ const cloudStorageReducer = (state = initState, action: any) => {
     case actions.RENAME_FILE:
       action.payload.file.rename(action.payload.newName);
       return updateCloudStorageState();
+    case actions.CHANGE_FILTER_WORD:
+      return {
+        ...state,
+        filterWord: action.payload.word,
+      };
     default:
       return state;
   }

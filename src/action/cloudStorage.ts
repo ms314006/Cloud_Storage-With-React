@@ -72,3 +72,12 @@ export const renameFile = (file: IFolder | IFile, newName: string) => ({
     newName,
   },
 });
+
+export const CHANGE_FILTER_WORD = 'CHANGE_FILTER_WORD';
+
+export const chageFilterWord = (word: string) => ({
+  type: CHANGE_FILTER_WORD,
+  payload: {
+    word,
+  },
+});

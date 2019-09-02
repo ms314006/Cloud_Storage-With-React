@@ -9,7 +9,7 @@ import Folder from './Folder';
 import File from './File';
 import { IFile } from '../../interface/IFile';
 import { IFolder } from '../../interface/IFolder';
-import { changeCurrentFolder } from '../../action/cloudStorage';
+import { changeCurrentFolder, chageFilterWord } from '../../action/cloudStorage';
 import styles from './index.scss';
 
 const useStyles = makeStyles({
@@ -30,7 +30,7 @@ const Content = (props: any): JSX.Element => {
   const {} = props;
   const classes = useStyles({});
   const dispatch = useDispatch();
-  const { files, currentFolder, } = useSelector(state => state);
+  const { files, currentFolder, filterWord, } = useSelector(state => state);
   const { match: { params: { routeType, }, }, } = props;
   const renderHeaderTitle = (route: string, folder: IFolder) => {
     switch (route) {
@@ -98,6 +98,7 @@ const Content = (props: any): JSX.Element => {
             InputProps={{
               disableUnderline: true,
               placeholder: '搜尋您的檔案',
+              value: filterWord,
               classes: {
                 root: classes.searchInput,
               },
@@ -109,6 +110,9 @@ const Content = (props: any): JSX.Element => {
                 </InputAdornment>
               ),
             }}
+            onChange={(event) => {
+              dispatch(chageFilterWord(event.target.value));
+            }}
           />
         </div>
       </div>
@@ -116,15 +120,20 @@ const Content = (props: any): JSX.Element => {
         資料夾
         <div className={styles.listBlock}>
           {
-            getRenderFolders(routeType).map((folder: IFolder) => (
-              <FileTemplate
-                key={folder.id}
-                file={folder}
-                fileType="folder"
-              >
-                <Folder folder={folder} />
-              </FileTemplate>
-            ))
+            getRenderFolders(routeType)
+              .filter((folder: IFolder) => (
+                filterWord === ''
+                || folder.name.indexOf(filterWord) !== -1
+              ))
+              .map((folder: IFolder) => (
+                <FileTemplate
+                  key={folder.id}
+                  file={folder}
+                  fileType="folder"
+                >
+                  <Folder folder={folder} />
+                </FileTemplate>
+              ))
           }
         </div>
       </div>
@@ -132,15 +141,20 @@ const Content = (props: any): JSX.Element => {
         檔案
         <div className={styles.listBlock}>
           {
-            getRenderFiles(routeType).map((file: IFile) => (
-              <FileTemplate
-                key={file.id}
-                file={file}
-                fileType="file"
-              >
-                <File file={file} />
-              </FileTemplate>
-            ))
+            getRenderFiles(routeType)
+              .filter((file: IFile) => (
+                filterWord !== ''
+                || file.name.indexOf(filterWord) !== -1
+              ))
+              .map((file: IFile) => (
+                <FileTemplate
+                  key={file.id}
+                  file={file}
+                  fileType="file"
+                >
+                  <File file={file} />
+                </FileTemplate>
+              ))
           }
         </div>
       </div>
