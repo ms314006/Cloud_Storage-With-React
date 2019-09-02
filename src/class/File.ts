@@ -25,7 +25,10 @@ class File implements IFile {
 
   getFileType = () => this.name.slice(this.name.lastIndexOf('.') + 1);
 
-  rename = (name: string) => { this.name = name; };
+  rename = (name: string) => {
+    const fileType = this.name.slice(this.name.lastIndexOf('.') + 1);
+    this.name = `${name}.${fileType}`;
+  };
 
   switchImportance = () => { this.importance = !this.importance; };
 

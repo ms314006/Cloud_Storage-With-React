@@ -13,7 +13,11 @@ const File = (props: any):JSX.Element => {
           />
         );
       default:
-        return null;
+        return (
+          <div className={styles.fileBlock}>
+            <i className="fas fa-file" />
+          </div>
+        );
     }
   };
 
