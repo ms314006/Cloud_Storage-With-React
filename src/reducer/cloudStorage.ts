@@ -58,7 +58,10 @@ const cloudStorageReducer = (state = initState, action: any) => {
       };
     case actions.CREATE_FOLDER:
       state.currentFolder.addFolder(
-        new Folder(action.payload.name, state.currentFolder)
+        new Folder(
+          action.payload.name.replace(' ', '') || '新資料夾',
+          state.currentFolder
+        )
       );
       return updateCloudStorageState();
     case actions.DROP_FILE:
