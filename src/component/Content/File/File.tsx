@@ -5,6 +5,8 @@ const File = (props: any):JSX.Element => {
   const { file, } = props;
   const getRenderDomWithType = (fileType: string) => {
     switch (fileType) {
+      case 'png':
+      case 'jpeg':
       case 'jpg':
         return (
           <div
